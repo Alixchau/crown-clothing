@@ -3,11 +3,13 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
+import Header from './components/header/header.component';
 
 
 function App() {
   return (
     <div >
+      <Header />
       <Switch>
 {/*       Switch will only render the first path that fits and stop go through the remain paths.
  Route component will render the component with the path appended after the URL. exact's default is true   */}      
