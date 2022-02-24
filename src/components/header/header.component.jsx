@@ -13,8 +13,11 @@ const Header = ({ currentUser }) =>(
     <div className='options'>
       <Link className='option' to='/shop'>SHOP</Link>
       <Link className='option' to='/shop'>CONTACT</Link>
+      {/* conditionaly render sign in or sign out based on if the currentUser is null(false) or exist(true)  */}
+        {/* on click calls anonymous function that calls auth.signOut() from firebase auth library*/}
       {
         currentUser ?
+
         <div className='option' onClick={() => auth.signOut() }>SIGN OUT</div>
         :
         <Link className='option' to='/signIn'>SIGN IN</Link>

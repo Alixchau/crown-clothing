@@ -5,7 +5,7 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 class App extends React.Component {
   constructor(){
@@ -19,12 +19,29 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount(){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
-      this.setState({currentUser: user});
-      console.log(user)
+    /* firebase method for user authenticated session persistence. Open subscription. */
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth =>{
+      if(userAuth){ //if userAuth exists 
+        //if doc is exist, simply get back userRef otherwise create new object and document and then still get back userRef 
+        const userRef = await createUserProfileDocument(userAuth);
+       //get snapShop object data of the user to store in the state of our application
+        userRef.onSnapshot(snapShop =>{
+          this.setState({
+            currentUser: {
+              id: snapShop.id,
+              ...snapShop.data()
+            }
+          },()=>{
+            console.log(this.state);
+          });
+        });
+      }
+      else{//if userAuth is null(user signs out) set the currentUser to null
+        this.setState({currentUser: userAuth});
+      }
     })
   }
-
+/* close the subscription when the component unmounts */
   componentWillUnmount(){
     this.unsubscribeFromAuth();
   }
