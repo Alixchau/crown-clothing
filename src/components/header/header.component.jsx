@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { ReactComponent as Logo} from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 
@@ -25,5 +26,9 @@ const Header = ({ currentUser }) =>(
     </div>
   </div>
 )
+/* the state being passed is the root reducer. with coonect higher order component these mapping property from reducer*/
+const mapStateTopProps = (state) => ({
+  currentUser: state.user.currentUser
+})
 
-export default Header;
+export default connect(mapStateTopProps)(Header);
