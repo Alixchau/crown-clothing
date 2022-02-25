@@ -63,13 +63,14 @@ class App extends React.Component {
   }
 };
 
-const mapStateTopProps = ({user:{currentUser}}) => ({
+const mapStateToProps = ({user:{currentUser}}) => ({
   currentUser,
 
 });
-
+/* function that gets dispatch property and return an object where the prop name will be which passed in that dispatches the type of action that passed*/
+/* dispatch: accepts the action objet and pass to reducer*/
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 })
 
-export default connect(mapStateTopProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -32,7 +32,7 @@ const Header = ({ currentUser, hidden }) =>(
     }
   </div>
 )
-/* the state being passed is the root reducer. with coonect higher order component these mapping property from reducer*/
+/* the state being passed is the root reducer. with coonect higher order component mapping property from reducer*/
 const mapStateTopProps = ({user:{currentUser}, cart: {hidden}}) => ({
   currentUser,
   hidden
