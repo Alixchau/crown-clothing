@@ -63,9 +63,10 @@ class App extends React.Component {
   }
 };
 
-const mapStateTopProps = ({user}) => ({
-  currentUser: user.currentUser
-})
+const mapStateTopProps = ({user:{currentUser}}) => ({
+  currentUser,
+
+});
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))

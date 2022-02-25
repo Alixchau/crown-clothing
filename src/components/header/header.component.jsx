@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ReactComponent as Logo} from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
+import CartIcon from '../cart-icon/cart-icon.component';
+import CartDropDown from '../cart-dropdown/cart-dropdown.component';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser }) =>(
+const Header = ({ currentUser, hidden }) =>(
   <div className='header'>
     <Link className='logo-container' to='/'>
       <Logo className='logo' />
@@ -23,12 +25,17 @@ const Header = ({ currentUser }) =>(
         :
         <Link className='option' to='/signIn'>SIGN IN</Link>
       }
+      <CartIcon />
     </div>
+    {
+      hidden ? null : <CartDropDown />
+    }
   </div>
 )
 /* the state being passed is the root reducer. with coonect higher order component these mapping property from reducer*/
-const mapStateTopProps = (state) => ({
-  currentUser: state.user.currentUser
+const mapStateTopProps = ({user:{currentUser}, cart: {hidden}}) => ({
+  currentUser,
+  hidden
 })
 
 export default connect(mapStateTopProps)(Header);
