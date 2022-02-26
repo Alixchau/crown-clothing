@@ -5,7 +5,7 @@ const selectCart = state => state.cart;
 /* output selector: use input selector and createSelector to build themselves and become a memerized selector*/
 export const selectCartItems = createSelector(
   [selectCart], //first arg is selector array
-  (cart) => cart.cartItems // a function return value we want out of this selector
+  (cart) => cart.cartItems // a function gets the return of first arg's input selector(cart: cartReducer), and return value we want out of this selector
 );
 /* get the total quantity of cartItems */
 export const selectCartItemsCount = createSelector(
@@ -13,3 +13,14 @@ export const selectCartItemsCount = createSelector(
   cartItems => 
   cartItems.reduce((accumalatedQuantity, cartItem) =>accumalatedQuantity + cartItem.quantity,0)
 );
+
+export const selectCartHidden = createSelector(
+  [selectCart],
+  (cart) => cart.hidden
+);
+
+export const selectCartTotal = createSelector(
+  [selectCartItems],
+  cartItems =>
+  cartItems.reduce((accumalatedQuantity, cartItem) =>accumalatedQuantity + cartItem.quantity * cartItem.price ,0)
+)

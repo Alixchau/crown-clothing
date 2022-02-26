@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { ReactComponent as Logo} from '../../assets/crown.svg';
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropDown from '../cart-dropdown/cart-dropdown.component';
-
+import { selectCartHidden } from '../../redux/cart/cart.selector';
+import { selectCurrentUser } from '../../redux/user/user.selector';
 import './header.styles.scss';
 
 const Header = ({ currentUser, hidden }) =>(
@@ -32,10 +34,11 @@ const Header = ({ currentUser, hidden }) =>(
     }
   </div>
 )
-/* the state being passed is the root reducer. with coonect higher order component mapping property from reducer*/
-const mapStateTopProps = ({user:{currentUser}, cart: {hidden}}) => ({
-  currentUser,
-  hidden
+/* the state being passed is the root reducer. with conect higher order component mapping property from reducer*/
+/* createStructuredSelector pass the top level state get from mapStateToProps into each subsequent selector*/
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  hidden: selectCartHidden
 })
 
-export default connect(mapStateTopProps)(Header);
+export default connect(mapStateToProps)(Header);

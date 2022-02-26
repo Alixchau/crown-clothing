@@ -11,6 +11,6 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
       cartItem
       )
   }
-  //quntity property gets attached the first time since the above if bloce wont run when it's a new item.
+  //quntity property gets attached the first time since the above if block wont run when it's a new item.
   return [...cartItems, {...cartItemToAdd, quantity: 1 }];
 }
